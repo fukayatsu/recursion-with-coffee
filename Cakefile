@@ -1,3 +1,8 @@
+#TODO
+# リファクタリング
+# 変更があったファイルだけテスト
+
+
 fs = require 'fs'
 
 {print} = require 'util'
@@ -14,3 +19,20 @@ build = (callback) ->
 
 task 'build', 'Build lib/ from src/', ->
   build()
+
+task 'watch', 'Watch src/ for changes', ->
+  coffee = spawn 'coffee', ['-w', '-c', '-o', 'lib', 'src']
+
+  #build failed
+  coffee.stderr.on 'data', (data) ->
+    process.stderr.write data.toString()
+  #build SUCCESS
+  coffee.stdout.on 'data', (data) ->
+    print data.toString()
+
+    #testing
+    jasmine = spawn 'jasmine-node', ['--coffee', 'spec']
+    jasmine.stderr.on 'data', (data) ->
+      process.stderr.write data.toString()
+    jasmine.stdout.on 'data', (data) ->
+      print data.toString()
