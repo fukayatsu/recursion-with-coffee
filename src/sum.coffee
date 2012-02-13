@@ -1,6 +1,12 @@
 exports.sum = (xs) -> 
-	calc 0, xs
+  sum xs
 
-calc = (total, xs) ->
-	return total if xs.length == 0
-	calc total + xs.pop(), xs
+sum = (xs) ->
+  return 0 if xs.length == 0
+  tuple = new Tuple(xs)
+  tuple.head() + sum(tuple.tail())
+
+class Tuple
+  constructor: (@xs) ->
+  head: -> @xs[0]
+  tail: -> @xs[1..-1]
