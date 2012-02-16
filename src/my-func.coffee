@@ -40,6 +40,21 @@ find = (xs, func) ->
   else
     return find tuple.tail(), func
 
+skip = (xs, n) ->
+  return xs if n == 0 || xs.length == 0
+  tuple = new Tuple xs
+  skip tuple.tail(), n-1
+
+#配列の先頭に要素を追加する関数
+cons = (x,xs) -> xs.unshift x; xs
+
+take = (xs, n) ->
+  return [] if n == 0 || xs.length == 0
+  tuple = new Tuple xs
+  cons tuple.head(), (take tuple.tail(), n-1)
+
+
+
 
 module.exports = class MyFunc
   @sum : (xs) -> sum xs
@@ -49,5 +64,5 @@ module.exports = class MyFunc
   @forAll : (xs, func) -> forAll xs, func
   @forAny : (xs, func) -> forAny xs, func
   @find : (xs, func) -> find xs, func
-
-
+  @skip : (xs, n) -> skip xs, n
+  @take : (xs, n) -> take xs, n

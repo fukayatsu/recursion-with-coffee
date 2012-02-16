@@ -60,3 +60,20 @@ describe('find', ->
   it '[2,3]', ->expect(Func.find [2,3], pred).toEqual 2
   it '[1,3,5,6]', -> expect(Func.find [1,3,5,6], pred).toEqual 6
 )
+
+describe('skip', ->
+  it '[], 0', -> expect(Func.skip [], 0).toEqual []
+  it '[1,2,3,4,5], 0', -> expect(Func.skip [1,2,3,4,5], 0).toEqual [1,2,3,4,5]
+  it '[1,2,3,4,5], 1', -> expect(Func.skip [1,2,3,4,5], 1).toEqual [2,3,4,5]
+  it '[1,2,3,4,5], 3', -> expect(Func.skip [1,2,3,4,5], 3).toEqual [4,5]
+  it '[1,2,3,4,5], 10', -> expect(Func.skip [1,2,3,4,5], 10).toEqual []
+)
+
+describe('take', ->
+  it '[], 0', -> expect(Func.take [], 0).toEqual []
+  it '[], 1', -> expect(Func.take [], 1).toEqual []
+  it '[1,2,3], 1', -> expect(Func.take [1,2,3], 1).toEqual [1]
+  it '[1,2,3], 2', -> expect(Func.take [1,2,3], 2).toEqual [1,2]
+  it '[1,2,3], 3', -> expect(Func.take [1,2,3], 3).toEqual [1,2,3]
+  it '[1,2,3,4,5], 10', -> expect(Func.take [1,2,3,4,5], 10).toEqual [1,2,3,4,5]
+)
