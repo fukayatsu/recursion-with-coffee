@@ -31,3 +31,32 @@ describe('min', ->
   it '[2,1]', -> expect(Func.min [2,1]).toEqual 1
   it '[1,2,-2,6,3]', -> expect(Func.min [1,2,-2,6,3]).toEqual -2
 )
+
+pred = (num) ->
+  if num%2==0 then true else false
+
+describe('forAll', ->
+  it '[]', -> expect(Func.forAll [], pred).toEqual true
+  it '[1]', -> expect(Func.forAll [1], pred).toEqual false
+  it '[2]', -> expect(Func.forAll [2], pred).toEqual true
+  it '[2,2]', -> expect(Func.forAll [2,2], pred).toEqual true
+  it '[1,1]', -> expect(Func.forAll [1,1], pred).toEqual false
+  it '[2,4,6,8]', -> expect(Func.forAll [2,4,6,8], pred).toEqual true
+  it '[2,4,5,8]', -> expect(Func.forAll [2,4,5,8], pred).toEqual false
+)
+
+describe('forAny', ->
+  it '[]', -> expect(Func.forAny [], pred).toEqual false
+  it '[1]', -> expect(Func.forAny [1], pred).toEqual false
+  it '[2]', -> expect(Func.forAny [2], pred).toEqual true
+  it '[1,3,5,7]', -> expect(Func.forAny [1,3,5,7], pred).toEqual false
+  it '[1,3,5,8]', -> expect(Func.forAny [1,3,5,8], pred).toEqual true
+)
+
+describe('find', ->
+  it '[]', ->expect(Func.find [], pred).toEqual null
+  it '[1]', ->expect(Func.find [1], pred).toEqual null
+  it '[2]', ->expect(Func.find [2], pred).toEqual 2
+  it '[2,3]', ->expect(Func.find [2,3], pred).toEqual 2
+  it '[1,3,5,6]', -> expect(Func.find [1,3,5,6], pred).toEqual 6
+)
